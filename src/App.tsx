@@ -5,6 +5,10 @@ import { Calendar } from './components/Calendar';
 
 export const App: React.FC = () => {
   return (
-    <Calendar />
+    <main className="main">
+      <div className="main__container">
+        <Calendar />
+      </div>
+    </main>
   );
 };
