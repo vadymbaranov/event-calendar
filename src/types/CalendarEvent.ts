@@ -4,6 +4,6 @@ export type CalendarEvent = {
   dayId?:string,
   title: string,
   description?: string,
-  date: number,
+  date?: string,
   time?: string,
 };

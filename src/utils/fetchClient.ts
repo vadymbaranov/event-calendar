@@ -11,7 +11,7 @@ export const client = {
     const events: CalendarEvent[] = client.get();
 
     const newArrayOfevents = events.filter(
-      (event) => event.createdAt !== eventCreatedDate
+      (event) => event.createdAt !== eventCreatedDate,
     );
 
     localStorage.setItem('events', JSON.stringify([newArrayOfevents]));
@@ -20,11 +20,11 @@ export const client = {
     const events: CalendarEvent[] = client.get();
 
     const currentEvent = events.find(
-      (event) => newData.createdAt === event.createdAt
+      (event) => newData.createdAt === event.createdAt,
     );
 
     const newevents = events.filter(
-      (event) => event.createdAt !== currentEvent?.createdAt
+      (event) => event.createdAt !== currentEvent?.createdAt,
     );
 
     localStorage.setItem('events', JSON.stringify([...newevents, newData]));

@@ -1,28 +1,22 @@
 import React, { useState } from 'react';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
-import { addOne, updateOne, deleteOne } from '../../api/events';
+import { addOne, updateOne } from '../../api/events';
 import { CalendarEvent } from '../../types/CalendarEvent';
-
-import { InputField } from '../InputField';
 
 type Props = {
   selectedEvent: CalendarEvent | null;
-  today: Moment;
-  isFormShown: boolean;
   onFormShown: (isFormShown: boolean) => void;
 };
 
 export const NewEventForm: React.FC<Props> = ({
   selectedEvent,
-  today,
-  isFormShown,
   onFormShown,
 }) => {
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
-  const [date, setDate] = useState(today.date);
+  const [date, setDate] = useState<string>('');
   const [time, setTime] = useState<string>('');
 
   const handleSubmit = () => {
@@ -67,58 +61,58 @@ export const NewEventForm: React.FC<Props> = ({
       <h3 className="subtitle is-4">Title*</h3>
 
       <input
-        type="text"
-        className="event__titleField"
-        label="Title"
+        name="title"
         required
         placeholder="Title goes here"
         value={title}
-        onChange={(event) => setTitle(event.target.value)}
-        disabled={isAdding}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => setTitle(event.target.value)}
       />
 
       <input
-        type="text"
-        className="event__descriptionField"
-        label="Description"
+        name="description"
         placeholder="Description"
         value={description}
-        onChange={(event) => setDescription(event.target.value)}
-        disabled={isAdding}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => (
+          setDescription(event.target.value)
+        )}
+        // disabled={isAdding}
       />
 
       <input
         type="date"
         required
         className="event__dateField"
-        label="Description"
         value={date}
-        onChange={(event) => setDate(event.target.value)}
-        disabled={isAdding}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => setDate(event.target.value)}
       />
 
       <input
         type="time"
         required
         className="event__timeField"
-        label="Time"
         value={date}
         onChange={(event) => setTime(event.target.value)}
-        disabled={isAdding}
       />
 
       {selectedEvent && (
         <button
           aria-label="Save"
           type="submit"
-          onClick={() => deleteOne(selectedEvent.createdAt)}
+          className="button is-danger is-outlined"
+          // onClick={() => deleteOne(selectedEvent?.createdAt)}
         >
           <FontAwesomeIcon icon={faTrashCan} />
         </button>
       )}
 
-      <InputField />
-      <InputField />
+      <button
+        type="submit"
+        className="button is-success is-outlined"
+        disabled={!title || !date}
+        onClick={handleSubmit}
+      >
+        Save
+      </button>
     </form>
   );
 };

@@ -1,7 +1,8 @@
 export type Day = {
+  id: string,
   date: string,
-  numberOfDay: string,
-  dayOfWeek: string,
+  dayNumber: string,
+  weekNumber: string,
   month: string,
   year: string,
 };

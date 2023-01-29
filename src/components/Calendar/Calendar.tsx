@@ -3,15 +3,16 @@ import React, { useState } from 'react';
 import moment, { Moment } from 'moment';
 import { Day } from '../../types/Day';
 import { CalendarEvent } from '../../types/CalendarEvent';
+
 import { CalendarHeader } from '../CalendarHeader';
 import { CalendarDay } from '../CalendarDay';
 import { NewEventForm } from '../NewEventForm';
 
 export const Calendar: React.FC = () => {
   const [today, setToday] = useState<Moment>(moment());
-  const [year, setYear] = useState<Moment>(moment());
-  const [month, setMonth] = useState<Moment>(moment());
-  const [selectedDay, setSelectedDay] = useState<Day | null>(null);
+  // const [year, setYear] = useState<Moment>(moment());
+  // const [month, setMonth] = useState<Moment>(moment());
+  // const [selectedDay, setSelectedDay] = useState<Day | null>(null);
   const [isFormShown, setIsFormShown] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
 
@@ -19,51 +20,56 @@ export const Calendar: React.FC = () => {
   const startDay: Moment = moment().clone().startOf('month').startOf('week');
   const day: Moment = startDay.clone().subtract(1, 'day');
   const totalDays = 42;
-  const daysArray: Moment[] = [...Array(totalDays)].map(() =>
-    day.add(1, 'day').clone());
+  const totalDaysArray: Moment[] = [...Array(totalDays)]
+    .map(() => day.add(1, 'day').clone());
 
-  const isCurrentDay = (dayCell: Day) => {
-    return (
-      moment().format('YYYY M D')
-      === `${dayCell.year} ${dayCell.month} ${dayCell.numberOfDay}`
-    );
-  };
+  const daysArray: Day[] = totalDaysArray.map(oneDay => ({
+    id: moment(oneDay).format('DDMMYYYY'),
+    date: `${moment(oneDay).format('YYYY')}-${moment(oneDay).format('MM')}-${moment(oneDay).format('DD')}`,
+    dayNumber: moment(oneDay).format('D'),
+    weekNumber: moment(oneDay).format('dd'),
+    month: moment(oneDay).format('M'),
+    year: moment(oneDay).format('YYYY'),
+  }));
+  // const isCurrentDay = (dayCell: Day) => {
+  //   return (
+  //     moment().format('YYYY M D')
+  //     === `${dayCell.year} ${dayCell.month} ${dayCell.numberOfDay}`
+  //   );
+  // };
 
-  const handlePrevMonth = () =>
-    setToday((prev) => prev.clone().subtract(1, 'month'));
+  const handlePrevMonth = () => setToday((prev) => prev.clone().subtract(1, 'month'));
   const handleToday = () => setToday(moment());
-  const handleNextMonth = () =>
-    setToday((prev) => prev.clone().add(1, 'month'));
+  const handleNextMonth = () => setToday((prev) => prev.clone().add(1, 'month'));
 
-  const [method, setMethod] = useState(null);
-  const [isShowForm, setShowForm] = useState<boolean>(false);
-  const [event, setEvent] = useState(null);
+  // const [method, setMethod] = useState(null);
+  // const [event, setEvent] = useState(null);
 
-  const [events, setEvents] = useState([]);
-  const startDayQuery = startDay.clone().format('X');
-  const endDayQuery = startDay.clone().add(totalDays, 'days').format('X');
+  // const [events, setEvents] = useState([]);
+  // const startDayQuery = startDay.clone().format('X');
+  // const endDayQuery = startDay.clone().add(totalDays, 'days').format('X');
 
-  const openFormHandler = (methodName, eventForUpdate, dayItem) => {
-    setEvent(eventForUpdate || { ...defaultEvent, date: dayItem.format('X') });
-    setMethod(methodName);
-  };
+  // const openFormHandler = (methodName, eventForUpdate, dayItem) => {
+  //   setEvent(eventForUpdate || { ...defaultEvent, date: dayItem.format('X') });
+  //   setMethod(methodName);
+  // };
 
-  const openModalFormHandler = (methodName, eventForUpdate, dayItem) => {
-    setShowForm(true);
-    openFormHandler(methodName, eventForUpdate, dayItem);
-  };
+  // const openModalFormHandler = (methodName, eventForUpdate, dayItem) => {
+  //   setShowForm(true);
+  //   openFormHandler(methodName, eventForUpdate, dayItem);
+  // };
 
-  const cancelButtonHandler = () => {
-    setShowForm(false);
-    setEvent(null);
-  };
+  // const cancelButtonHandler = () => {
+  //   setShowForm(false);
+  //   setEvent(null);
+  // };
 
-  const changeEventHandler = (text, field) => {
-    setEvent((prevState) => ({
-      ...prevState,
-      [field]: text,
-    }));
-  };
+  // const changeEventHandler = (text, field) => {
+  //   setEvent((prevState) => ({
+  //     ...prevState,
+  //     [field]: text,
+  //   }));
+  // };
 
   // const endDay: Moment = moment().endOf('month').endOf('week');
 
@@ -92,19 +98,20 @@ export const Calendar: React.FC = () => {
           {isFormShown && (
             <NewEventForm
               selectedEvent={selectedEvent}
-              today={today}
-              isFormShown={isFormShown}
               onFormShown={setIsFormShown}
             />
           )}
 
           {daysArray.map((dayItem) => (
             <CalendarDay
-              key={dayItem.format('DDMMYYYY')}
-              day={dayItem.format('D')}
-              isWeekend={dayItem.day() === 6 || dayItem.day() === 0}
+              key={dayItem.id}
+              day={dayItem}
+              // isWeekend={dayItem.day() === 6 || dayItem.day() === 0}
+              onFormShown={setIsFormShown}
+              onSelectedEvent={setSelectedEvent}
             />
           ))}
+          <p>{today.format('DD-MMMM-YYYY')}</p>
         </div>
       </div>
     </section>
