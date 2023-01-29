@@ -13,7 +13,6 @@ module.exports = {
     semi: 0,
     'no-proto': 0,
     'no-unused-vars': 0,
-    'no-plusplus': ['error', { allowForLoopAfterthought: true }],
 
     // TypeScript
     '@typescript-eslint/no-unused-vars': ['error'],
