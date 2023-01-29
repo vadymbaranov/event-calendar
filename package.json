@@ -1,6 +1,6 @@
 {
-  "name": "holy-water-event-calendar",
-  "homepage": "https://vadymbaranov.github.io/holy-water-event-calendar",
+  "name": "event-calendar",
+  "homepage": "https://vadymbaranov.github.io/event-calendar",
   "version": "0.1.0",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
