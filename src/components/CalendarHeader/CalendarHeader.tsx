@@ -47,6 +47,7 @@ export const CalendarHeader: React.FC<Props> = ({
       </button>
       <h2 className="subtitle is-3">
         {today.format('MMMM')}
+        &nbsp;
         {today.format('YYYY')}
       </h2>
       <button

@@ -16,7 +16,7 @@ export const Calendar: React.FC = () => {
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
 
   moment.updateLocale('en', { week: { dow: 1 } });
-  const startDay: Moment = moment().clone().startOf('month').startOf('week');
+  const startDay: Moment = today.clone().startOf('month').startOf('week');
   const day: Moment = startDay.clone().subtract(1, 'day');
   const totalDays = 42;
   const daysArray: Moment[] = [...Array(totalDays)].map(() => day.add(1, 'day').clone());
@@ -28,9 +28,9 @@ export const Calendar: React.FC = () => {
   //   );
   // };
 
-  const handlePrevMonth = () => setToday((prev) => prev.clone().subtract(1, 'month'));
+  const handlePrevMonth = () => setToday(prev => prev.clone().subtract(1, 'month'));
   const handleToday = () => setToday(moment());
-  const handleNextMonth = () => setToday((prev) => prev.clone().add(1, 'month'));
+  const handleNextMonth = () => setToday(prev => prev.clone().add(1, 'month'));
 
   // const [method, setMethod] = useState(null);
   // const [event, setEvent] = useState(null);
@@ -102,7 +102,6 @@ export const Calendar: React.FC = () => {
               onSelectedEvent={setSelectedEvent}
             />
           ))}
-          <p>{today.format('DD-MMMM-YYYY')}</p>
         </div>
       </div>
     </section>
