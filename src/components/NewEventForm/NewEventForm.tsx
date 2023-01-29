@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import moment, { Moment } from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
-import { CalendarEvent } from '../../types.ts/CalendarEvent';
+import { addOne, updateOne, deleteOne } from '../../api/events';
+import { CalendarEvent } from '../../types/CalendarEvent';
 
 import { InputField } from '../InputField';
 
@@ -21,11 +22,11 @@ export const NewEventForm: React.FC<Props> = ({
 }) => {
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
-  const [date, setDate] = useState(chosenDay.date);
+  const [date, setDate] = useState(today.date);
   const [time, setTime] = useState<string>('');
 
   const handleSubmit = () => {
-    const newEvent = {
+    const newEvent: CalendarEvent = {
       createdAt: moment().format('DD.MM.YYYY HH:MM'),
       title,
       description,
@@ -33,11 +34,11 @@ export const NewEventForm: React.FC<Props> = ({
       time,
     };
 
-    if (!currentEvent) {
+    if (!selectedEvent) {
       addOne(newEvent);
     } else {
       updateOne({
-        ...currentEvent,
+        ...selectedEvent,
         title,
         date,
         time,
@@ -45,17 +46,17 @@ export const NewEventForm: React.FC<Props> = ({
       });
     }
 
-    onSetFormIsShowing(false);
+    onFormShown(false);
   };
 
   return (
     <form className="event__form">
       <div className="event__title">
         <h2 className="subtitle is-3">Add new idea item</h2>
-        {currentEvent && <p>{`Created at ${currentEvent?.createdAt}`}</p>}
+        {selectedEvent && <p>{`Created at ${selectedEvent?.createdAt}`}</p>}
 
         <button
-          onClick={() => onSetFormIsShowing(false)}
+          onClick={() => onFormShown(false)}
           type="button"
           className="event__close-form"
         >
@@ -106,8 +107,12 @@ export const NewEventForm: React.FC<Props> = ({
         disabled={isAdding}
       />
 
-      {currentEvent && (
-        <button type="submit" onClick={() => deleteOne(currentEvent?.createdAt)}>
+      {selectedEvent && (
+        <button
+          aria-label="Save"
+          type="submit"
+          onClick={() => deleteOne(selectedEvent.createdAt)}
+        >
           <FontAwesomeIcon icon={faTrashCan} />
         </button>
       )}

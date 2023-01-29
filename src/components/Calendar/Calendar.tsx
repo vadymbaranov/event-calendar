@@ -1,8 +1,8 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useState } from 'react';
 import moment, { Moment } from 'moment';
-import { Day } from '../../types.ts/Day';
-import { CalendarEvent } from '../../types.ts/CalendarEvent';
+import { Day } from '../../types/Day';
+import { CalendarEvent } from '../../types/CalendarEvent';
 import { CalendarHeader } from '../CalendarHeader';
 import { CalendarDay } from '../CalendarDay';
 import { NewEventForm } from '../NewEventForm';
@@ -20,17 +20,20 @@ export const Calendar: React.FC = () => {
   const day: Moment = startDay.clone().subtract(1, 'day');
   const totalDays = 42;
   const daysArray: Moment[] = [...Array(totalDays)].map(() =>
-    day.add(1, 'day').clone()
-  );
+    day.add(1, 'day').clone());
 
   const isCurrentDay = (dayCell: Day) => {
     return (
-      moment().format('YYYY M D') === `${dayCell.year} ${dayCell.month} ${dayCell.numberOfDay}`);
+      moment().format('YYYY M D')
+      === `${dayCell.year} ${dayCell.month} ${dayCell.numberOfDay}`
+    );
   };
 
-  const handlePrevMonth = () => setToday((prev) => prev.clone().subtract(1, 'month'));
+  const handlePrevMonth = () =>
+    setToday((prev) => prev.clone().subtract(1, 'month'));
   const handleToday = () => setToday(moment());
-  const handleNextMonth = () => setToday((prev) => prev.clone().add(1, 'month'));
+  const handleNextMonth = () =>
+    setToday((prev) => prev.clone().add(1, 'month'));
 
   const [method, setMethod] = useState(null);
   const [isShowForm, setShowForm] = useState<boolean>(false);
@@ -94,7 +97,6 @@ export const Calendar: React.FC = () => {
               onFormShown={setIsFormShown}
             />
           )}
-
 
           {daysArray.map((dayItem) => (
             <CalendarDay
