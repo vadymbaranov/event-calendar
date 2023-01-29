@@ -1,6 +1,8 @@
 import React from 'react';
+import { Moment } from 'moment';
 
 type Props = {
+  today: Moment;
   isFormShown: boolean;
   onFormShown: (isFormShown: boolean) => void;
   onNextMonth: () => void;
@@ -9,6 +11,7 @@ type Props = {
 };
 
 export const CalendarHeader: React.FC<Props> = ({
+  today,
   isFormShown,
   onFormShown,
   onNextMonth,
@@ -27,14 +30,30 @@ export const CalendarHeader: React.FC<Props> = ({
         +
       </button>
 
-      <h2 className="subtitle is-3">Month Year</h2>
+      <button
+        type="button"
+        className="button is-primary is-outlined"
+        onClick={onToday}
+      >
+        Today
+      </button>
 
-      <button type="button" className="button is-primary is-outlined" onClick={onToday}>Today</button>
-
-      <button type="button" className="button is-primary is-outlined" onClick={onPrevMonth}>
+      <button
+        type="button"
+        className="button is-primary is-outlined"
+        onClick={onPrevMonth}
+      >
         {'<'}
       </button>
-      <button type="button" className="button is-primary is-outlined" onClick={onNextMonth}>
+      <h2 className="subtitle is-3">
+        {today.format('MMMM')}
+        {today.format('YYYY')}
+      </h2>
+      <button
+        type="button"
+        className="button is-primary is-outlined"
+        onClick={onNextMonth}
+      >
         {'>'}
       </button>
     </div>

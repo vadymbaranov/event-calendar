@@ -1,7 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useState } from 'react';
 import moment, { Moment } from 'moment';
-import { Day } from '../../types/Day';
 import { CalendarEvent } from '../../types/CalendarEvent';
 
 import { CalendarHeader } from '../CalendarHeader';
@@ -20,17 +19,8 @@ export const Calendar: React.FC = () => {
   const startDay: Moment = moment().clone().startOf('month').startOf('week');
   const day: Moment = startDay.clone().subtract(1, 'day');
   const totalDays = 42;
-  const totalDaysArray: Moment[] = [...Array(totalDays)]
-    .map(() => day.add(1, 'day').clone());
+  const daysArray: Moment[] = [...Array(totalDays)].map(() => day.add(1, 'day').clone());
 
-  const daysArray: Day[] = totalDaysArray.map(oneDay => ({
-    id: moment(oneDay).format('DDMMYYYY'),
-    date: `${moment(oneDay).format('YYYY')}-${moment(oneDay).format('MM')}-${moment(oneDay).format('DD')}`,
-    dayNumber: moment(oneDay).format('D'),
-    weekNumber: moment(oneDay).format('dd'),
-    month: moment(oneDay).format('M'),
-    year: moment(oneDay).format('YYYY'),
-  }));
   // const isCurrentDay = (dayCell: Day) => {
   //   return (
   //     moment().format('YYYY M D')
@@ -86,6 +76,7 @@ export const Calendar: React.FC = () => {
         <div className="calendar__header">
           <h1 className="title is-1">Welcome to my calendar app!</h1>
           <CalendarHeader
+            today={today}
             isFormShown={isFormShown}
             onFormShown={setIsFormShown}
             onNextMonth={handleNextMonth}
@@ -104,9 +95,9 @@ export const Calendar: React.FC = () => {
 
           {daysArray.map((dayItem) => (
             <CalendarDay
-              key={dayItem.id}
+              key={dayItem.unix()}
               day={dayItem}
-              // isWeekend={dayItem.day() === 6 || dayItem.day() === 0}
+              isWeekend={dayItem.day() === 6 || dayItem.day() === 0}
               onFormShown={setIsFormShown}
               onSelectedEvent={setSelectedEvent}
             />

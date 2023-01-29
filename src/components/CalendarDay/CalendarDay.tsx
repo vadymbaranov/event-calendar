@@ -1,45 +1,51 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Day } from '../../types/Day';
+import moment, { Moment } from 'moment';
 import { CalendarEvent } from '../../types/CalendarEvent';
-import { getAll } from '../../api/events';
+// import { getAll } from '../../api/events';
 
 type Props = {
-  day: Day;
-  // isWeekend: boolean;
+  day: Moment;
+  isWeekend: boolean;
   onFormShown: (isFormShown: boolean) => void;
   onSelectedEvent: (selectedEvent: CalendarEvent | null) => void;
 };
 
 export const CalendarDay: React.FC<Props> = ({
   day,
-  // isWeekend,
-  onFormShown,
-  onSelectedEvent,
+  isWeekend,
+  // onFormShown,
+  // onSelectedEvent,
 }) => {
-  const { dayNumber, weekNumber } = day;
+  const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  // const getEvents = () => {
+  //   const events: CalendarEvent[] = getAll();
 
-  const getEvents = () => {
-    const events: CalendarEvent[] = getAll();
+  //   return events;
+  // };
 
-    return events;
-  };
+  // const events = getEvents();
 
-  const events = getEvents();
-
-  const currentEvents = events.filter((event) => day.id === event.createdAt);
+  // const currentEvents = events.filter((event) => day.id === event.createdAt);
+  const isCurrentDay = (dayItem: Moment) => moment().isSame(dayItem, 'day');
 
   return (
     <article
       className={classNames('calendar__cell', {
-        // 'is-weekend': isWeekend === true,
+        'is-weekend': isWeekend === true,
       })}
     >
       <div className="cell__row">
-        <p className="week__number">{weekNumber}</p>
-        <p className="day__number">{dayNumber}</p>
+        <p className="week__number">{weekDays[day.day()]}</p>
+        <p
+          className={classNames('day__number', {
+            'has-text-danger': isCurrentDay(day) === true,
+          })}
+        >
+          {day.format('D')}
+        </p>
         <div className="box">
-          {currentEvents.map((event) => (
+          {/* {currentEvents.map((event) => (
             <span
               aria-label="Save"
               role="textbox"
@@ -55,8 +61,9 @@ export const CalendarDay: React.FC<Props> = ({
               }}
             >
               {event.title}
+              My event
             </span>
-          ))}
+          ))} */}
         </div>
       </div>
     </article>
