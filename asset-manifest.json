@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/holy-water-event-calendar/static/css/main.9e017a66.chunk.css",
+    "main.js": "/holy-water-event-calendar/static/js/main.5a752572.chunk.js",
+    "main.js.map": "/holy-water-event-calendar/static/js/main.5a752572.chunk.js.map",
+    "runtime-main.js": "/holy-water-event-calendar/static/js/runtime-main.2afdef89.js",
+    "runtime-main.js.map": "/holy-water-event-calendar/static/js/runtime-main.2afdef89.js.map",
+    "static/js/2.b3f70d52.chunk.js": "/holy-water-event-calendar/static/js/2.b3f70d52.chunk.js",
+    "static/js/2.b3f70d52.chunk.js.map": "/holy-water-event-calendar/static/js/2.b3f70d52.chunk.js.map",
+    "index.html": "/holy-water-event-calendar/index.html",
+    "static/css/main.9e017a66.chunk.css.map": "/holy-water-event-calendar/static/css/main.9e017a66.chunk.css.map",
+    "static/js/2.b3f70d52.chunk.js.LICENSE.txt": "/holy-water-event-calendar/static/js/2.b3f70d52.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2afdef89.js",
+    "static/js/2.b3f70d52.chunk.js",
+    "static/css/main.9e017a66.chunk.css",
+    "static/js/main.5a752572.chunk.js"
+  ]
+}
