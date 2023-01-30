@@ -44,8 +44,9 @@ export const CalendarDay: React.FC<Props> = ({
         >
           {day.format('D')}
         </p>
-        <div className="box">
-          {/* {currentEvents.map((event) => (
+      </div>
+      <div className="box">
+        {/* {currentEvents.map((event) => (
             <span
               aria-label="Save"
               role="textbox"
@@ -64,7 +65,6 @@ export const CalendarDay: React.FC<Props> = ({
               My event
             </span>
           ))} */}
-        </div>
       </div>
     </article>
   );
