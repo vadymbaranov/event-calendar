@@ -17,7 +17,7 @@ export const Calendar: React.FC = () => {
 
   moment.updateLocale('en', { week: { dow: 1 } });
   const startDay: Moment = today.clone().startOf('month').startOf('week');
-  const day: Moment = startDay.clone().subtract(1, 'day');
+  const day: Moment = startDay.clone().subtract(7, 'day');
   const totalDays = 42;
   const daysArray: Moment[] = [...Array(totalDays)].map(() => day.add(1, 'day').clone());
 

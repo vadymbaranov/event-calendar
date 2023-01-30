@@ -36,7 +36,13 @@ export const CalendarDay: React.FC<Props> = ({
       })}
     >
       <div className="cell__row">
-        <p className="week__number">{weekDays[day.day()]}</p>
+        <p
+          className={classNames('week__day', {
+            'has-text-danger': isCurrentDay(day) === true,
+          })}
+        >
+          {weekDays[day.day()]}
+        </p>
         <p
           className={classNames('day__number', {
             'has-text-danger': isCurrentDay(day) === true,
