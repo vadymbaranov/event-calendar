@@ -73,8 +73,16 @@ export const Calendar: React.FC = () => {
   return (
     <section className="section">
       <div className="calendar__container">
+        <h1 className="title is-1">Welcome to my calendar app!</h1>
+
+        {isFormShown && (
+          <NewEventForm
+            selectedEvent={selectedEvent}
+            onFormShown={setIsFormShown}
+          />
+        )}
+
         <div className="calendar__header">
-          <h1 className="title is-1">Welcome to my calendar app!</h1>
           <CalendarHeader
             today={today}
             isFormShown={isFormShown}
@@ -86,13 +94,6 @@ export const Calendar: React.FC = () => {
         </div>
 
         <div className="calendar__body">
-          {isFormShown && (
-            <NewEventForm
-              selectedEvent={selectedEvent}
-              onFormShown={setIsFormShown}
-            />
-          )}
-
           {daysArray.map((dayItem) => (
             <CalendarDay
               key={dayItem.unix()}

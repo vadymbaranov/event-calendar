@@ -44,75 +44,105 @@ export const NewEventForm: React.FC<Props> = ({
   };
 
   return (
-    <form className="event__form">
-      <div className="event__title">
-        <h2 className="subtitle is-3">Add new idea item</h2>
-        {selectedEvent && <p>{`Created at ${selectedEvent?.createdAt}`}</p>}
+    <div className="event event__container">
+      <form className="box event__form">
+        <div className="event__title">
+          <h2 className="subtitle is-3">Add new idea item</h2>
+          {selectedEvent && <p>{`Created at ${selectedEvent?.createdAt}`}</p>}
 
-        <button
-          onClick={() => onFormShown(false)}
-          type="button"
-          className="event__close-form"
-        >
-          X
-        </button>
-      </div>
+          <button
+            onClick={() => onFormShown(false)}
+            type="button"
+            className="button is-danger button__close"
+          >
+            X
+          </button>
+        </div>
 
-      <h3 className="subtitle is-4">Title*</h3>
+        <div className="field">
+          <label htmlFor="title" className="label">
+            Title*:
+            <div className="control">
+              <input
+                name="title"
+                className="input"
+                type="text"
+                required
+                placeholder="Title goes here"
+                value={title}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => (
+                  setTitle(event.target.value)
+                )}
+              />
+            </div>
+          </label>
+        </div>
 
-      <input
-        name="title"
-        required
-        placeholder="Title goes here"
-        value={title}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => setTitle(event.target.value)}
-      />
+        <div className="field">
+          <label htmlFor="description" className="label">
+            Description:
+            <div className="control">
+              <textarea
+                name="description"
+                className="input description-text"
+                placeholder="Description"
+                value={description}
+                onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => (
+                  setDescription(event.target.value)
+                )}
+              />
+            </div>
+          </label>
+        </div>
 
-      <input
-        name="description"
-        placeholder="Description"
-        value={description}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => (
-          setDescription(event.target.value)
-        )}
-        // disabled={isAdding}
-      />
+        <div className="field">
+          <label htmlFor="title" className="label">
+            Date*:
+            <div className="control event__date-picker">
+              <input
+                type="date"
+                required
+                className="input event__dateField"
+                value={date}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => (
+                  setDate(event.target.value)
+                )}
+              />
 
-      <input
-        type="date"
-        required
-        className="event__dateField"
-        value={date}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => setDate(event.target.value)}
-      />
+              <input
+                type="time"
+                required
+                className="input event__timeField"
+                value={date}
+                onChange={(event) => setTime(event.target.value)}
+              />
+            </div>
+          </label>
+        </div>
 
-      <input
-        type="time"
-        required
-        className="event__timeField"
-        value={date}
-        onChange={(event) => setTime(event.target.value)}
-      />
+        {/* {selectedEvent && ( */}
 
-      {selectedEvent && (
-        <button
-          aria-label="Save"
-          type="submit"
-          className="button is-danger is-outlined"
-          // onClick={() => deleteOne(selectedEvent?.createdAt)}
-        >
-          <FontAwesomeIcon icon={faTrashCan} />
-        </button>
-      )}
+        <div className="save-button__container">
+          <button
+            aria-label="Save"
+            type="submit"
+            className="button is-danger is-outlined button__delete"
+            // onClick={() => deleteOne(selectedEvent?.createdAt)}
+          >
+            <FontAwesomeIcon icon={faTrashCan} />
+          </button>
+          {/* )} */}
 
-      <button
-        type="submit"
-        className="button is-success is-outlined"
-        disabled={!title || !date}
-        onClick={handleSubmit}
-      >
-        Save
-      </button>
-    </form>
+          <button
+            type="submit"
+            className="button is-success is-outlined button__save"
+            disabled={!title || !date}
+            onClick={handleSubmit}
+          >
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
